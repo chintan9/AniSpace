@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  @apply text-gray-400;
+}
+
+body {
+  @apply m-0 overflow-x-hidden;
+}
+
+#root {
+  @apply w-screen min-h-screen bg-dark-normal flex flex-col min-h-screen;
+}
+
+.underline-colorful {
+  @apply relative;
+}
+
+.underline-colorful::before {
+  content: "";
+  bottom: -5px;
+  height: 3px;
+  transform: translateX(-50%);
+  @apply bg-blue-sky absolute w-full left-1/2 rounded-lg;
+}
+
+.center-item {
+  @apply left-1/2 top-1/2 absolute;
+  transform: translate(-50%, -50%);
+}
+
+.grid-auto-fill {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 20px;
+  grid-gap: 20px;
+  max-width: 90%;
+}
+
+.ellipsis-two {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.darken-to-bottom {
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+}
+
+.background-image {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.card-background-container {
+  @apply w-full relative hover:opacity-70 transition group;
+  height: calc(100% - 56px);
+}
+
+@media (max-width: 640px) {
+  .grid-auto-fill {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+
+  .card-background-container {
+    height: calc(100% - 38px);
+  }
+}
+
+.fill-last-item::after {
+  content: "";
+  flex: auto;
+}
+
+.darken-btn {
+  @apply bg-dark-lighten md:bg-dark-normal hover:bg-dark-darken text-white transition py-2 px-4 rounded-md outline-none flex items-center gap-1;
+}
+
+#nprogress .bar {
+  background: #0d6efd !important;
+  height: 3px !important;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #0d6efd, 0 0 5px #0d6efd !important;
+}
