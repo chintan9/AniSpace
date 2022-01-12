@@ -1,7 +1,8 @@
-import { FC, Fragment, useRef, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Anime } from "../types";
+import { FC, Fragment, useEffect, useRef, useState } from "react";
 
+import { Anime } from "../types";
+import ImageFade from "./ImageFade";
+import { Link } from "react-router-dom";
 import Play from "../asset/svg/Play";
 import Skeleton from "../components/Skeleton";
 
@@ -18,7 +19,10 @@ const AnimeGrid: FC<AnimeGridProps> = ({ data, skeleton, title }) => {
   useEffect(() => {
     if (gridRef.current) {
       try {
-        const gridCols = window.getComputedStyle(gridRef.current).getPropertyValue("grid-template-columns").split(" ").length;
+        const gridCols = window
+          .getComputedStyle(gridRef.current)
+          .getPropertyValue("grid-template-columns")
+          .split(" ").length;
         setSkeletonCount(gridCols * 2);
       } catch (error) {
         setSkeletonCount(6);
@@ -34,13 +38,28 @@ const AnimeGrid: FC<AnimeGridProps> = ({ data, skeleton, title }) => {
           <Fragment key={index}>
             {group.map((e) => (
               <Link key={e.id} to={`/anime/${e.id}`}>
-                <div className="relative rounded-md overflow-hidden bg-dark-darken" style={{ paddingBottom: "156.25%" }}>
+                <div
+                  className="relative rounded-md overflow-hidden bg-dark-darken"
+                  style={{ paddingBottom: "156.25%" }}
+                >
                   <div className="h-full w-full absolute top-0 left-0">
                     <div className="card-background-container">
-                      <img className="h-full w-full object-cover" src={e.cover_image} alt="" />
-                      <Play className="top-1/2 left-1/2 absolute opacity-0 group-hover:opacity-100 transition" style={{ transform: "translate(-50%, -50%)" }} />
+                      <ImageFade
+                        className="h-full w-full object-cover"
+                        src={e.cover_image}
+                        alt=""
+                      />
+                      <Play
+                        className="top-1/2 left-1/2 absolute opacity-0 group-hover:opacity-100 transition"
+                        style={{ transform: "translate(-50%, -50%)" }}
+                      />
                     </div>
-                    <p className="flex-shrink-0 ellipsis-two text-xs h-9 md:text-base md:h-14 px-2 py-1 uppercase hover:text-blue-sky transition font-medium">{e.titles?.en || e.titles?.jp || e.titles?.it || "Unknown title"}</p>
+                    <p className="flex-shrink-0 ellipsis-two text-xs h-9 md:text-base md:h-14 px-2 py-1 uppercase hover:text-blue-sky transition font-medium">
+                      {e.titles?.en ||
+                        e.titles?.jp ||
+                        e.titles?.it ||
+                        "Unknown title"}
+                    </p>
                   </div>
                 </div>
               </Link>
@@ -50,7 +69,11 @@ const AnimeGrid: FC<AnimeGridProps> = ({ data, skeleton, title }) => {
         {skeleton && (
           <>
             {new Array(skeletonCount).fill("").map((_, index) => (
-              <Skeleton key={index} className="rounded-xl" style={{ paddingBottom: "156.25%" }} />
+              <Skeleton
+                key={index}
+                className="rounded-xl"
+                style={{ paddingBottom: "156.25%" }}
+              />
             ))}
           </>
         )}
